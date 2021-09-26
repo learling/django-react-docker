@@ -19,6 +19,13 @@ docker build . -t docker-django-v0.0
 docker run -p 127.0.0.1:8888:8000/tcp docker-django-v0.0
 ```
 
-# Static files
+## Compose
+
+```
+cd ..
+docker-compose up db web proxy
+```
+
+## Static files
 
 https://medium.com/codex/deploying-react-through-djangos-static-files-part-1-dev-setup-8a3a7b93c809

@@ -18,4 +18,4 @@ COPY . $DockerHOME
 
 RUN pip install -r requirements.txt
 # start development server
-#CMD cd $DjangoPROJECT && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+CMD cd $DjangoPROJECT && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000

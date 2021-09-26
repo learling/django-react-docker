@@ -1,7 +1,7 @@
 version: "3.7"
 
 services: # the different images that will be running as containers
-  nginx: # service name
+  proxy: # service name
     build: ./backend/nginx # location of the dockerfile that defines the nginx image. The dockerfile will be used to spin up an image during the build stage
     ports:
       - ${EXT_PORT}:80 # map the external port to the internal port 80. Any traffic from EXT_PORT externally will be passed to port 80 of the NGINX container.
