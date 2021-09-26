@@ -1,6 +1,9 @@
-# created by virtualenv automatically
-/Lib
-/Scripts
-pyvenv.cfg
 .env
-/db_data
+
+/backend/Lib
+/backend/Scripts
+/backend/pyvenv.cfg
+/backend/db_data
+
+/frontend/node_modules
+/frontend/build

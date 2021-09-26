@@ -1,5 +1,3 @@
-mkdir django-app
-cd django-app
 pip install virtualenv
 virtualenv .
 pip install django
