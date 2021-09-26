@@ -11,4 +11,4 @@ cd ..
 pip install djangorestframework
 pip freeze > requirements.txt
 docker build . -t docker-django-v0.0
-docker run -p 127.0.0.1:8888:8888/tcp docker-django-v0.0
+docker run -p 127.0.0.1:8888:8000/tcp docker-django-v0.0

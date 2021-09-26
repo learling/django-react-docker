@@ -3,7 +3,6 @@ FROM python:3.8
 # setup environment variables
 ENV DockerHOME=/home/app/webapp
 ENV DjangoPROJECT=dj_docker_drf
-ENV CustomPort=8888
 
 # set work directory
 RUN mkdir -p $DockerHOME
@@ -21,8 +20,7 @@ COPY . $DockerHOME
 # run this command to install all dependencies
 RUN pip install -r requirements.txt
 # start server
-EXPOSE $CustomPort
-CMD cd $DjangoPROJECT && \
- python manage.py makemigrations && \
- python manage.py migrate && \
- python manage.py runserver 0.0.0.0:$CustomPort
+#CMD cd $DjangoPROJECT && \
+# python manage.py makemigrations && \
+# python manage.py migrate && \
+# python manage.py runserver 0.0.0.0:8000
