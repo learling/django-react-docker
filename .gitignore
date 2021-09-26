@@ -3,6 +3,5 @@
 /backend/Scripts
 /backend/pyvenv.cfg
 /backend/db_data
-/backend/dj_docker_drf/build
 /frontend/build
 /frontend/node_modules
