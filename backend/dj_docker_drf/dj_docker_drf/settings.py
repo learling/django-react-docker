@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,8 +41,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'sample'
 ]
-
+# added whitenoise middleware
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,7 +58,8 @@ ROOT_URLCONF = 'dj_docker_drf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # Tell Django where to find Reacts index.html file
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +71,15 @@ TEMPLATES = [
         },
     },
 ]
+
+STATICFILES_DIRS = [
+    # Tell Django where to look for React's static files (css, js)
+    os.path.join(BASE_DIR, 'build/static'),
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATIC_ROOT = os.path.join(BASE_DIR, '/home/app/webservice/static')
 
 WSGI_APPLICATION = 'dj_docker_drf.wsgi.application'
 

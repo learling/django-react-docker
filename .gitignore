@@ -1,9 +1,8 @@
 .env
-
 /backend/Lib
 /backend/Scripts
 /backend/pyvenv.cfg
 /backend/db_data
-
-/frontend/node_modules
+/backend/dj_docker_drf/build
 /frontend/build
+/frontend/node_modules

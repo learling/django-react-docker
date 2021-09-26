@@ -1,10 +1,10 @@
-version: '3.7'
+version: "3.7"
 
 services: # the different images that will be running as containers
   nginx: # service name
     build: ./backend/nginx # location of the dockerfile that defines the nginx image. The dockerfile will be used to spin up an image during the build stage
     ports:
-      - 1339:80 # map the external port 1339 to the internal port 80. Any traffic from 1339 externally will be passed to port 80 of the NGINX container. To access this app, one would use an address such as 0.0.0.0:1339
+      - ${EXT_PORT}:80 # map the external port to the internal port 80. Any traffic from EXT_PORT externally will be passed to port 80 of the NGINX container.
     volumes: # static storages provisioned since django does not handle static files in production
       - static_volume:/home/app/webservice/static # provide a space for static files
     depends_on:
@@ -16,6 +16,7 @@ services: # the different images that will be running as containers
     command: sh -c "cd ${PROJECT_NAME} &&
                     python manage.py makemigrations &&
                     python manage.py migrate &&
+                    python manage.py collectstatic --noinput &&
                     gunicorn ${PROJECT_NAME}.wsgi:application --bind 0.0.0.0:${APP_PORT}" # Django commands to run app using gunicorn
     volumes:
       - ./backend:/webservice # map data and files from parent directory in host to webservice directory in docker container
@@ -28,21 +29,26 @@ services: # the different images that will be running as containers
     restart: "on-failure"
     depends_on: # cannot start if db service is not up and running
       - db
-  db: # service name
+  db:
     image: postgres # image name of the postgres database. during build, this will be pulled from dockerhub and a container spun up from it
     volumes:
       - ./backend/db_data:/var/lib/postgresql/data
-    environment: # access credentials from the .env file
+    environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     restart: "on-failure"
+  front:
+    build: ./frontend
+    volumes:
+      - ./frontend/build:/home/app/webservice/static
 
 volumes:
   static_volume:
 
 #.env:
 #PROJECT_NAME=dj_docker_drf
+#EXT_PORT=8765
 #APP_PORT=8888
 #POSTGRES_DB=postgres
 #POSTGRES_USER=postgres
