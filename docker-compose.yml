@@ -2,9 +2,10 @@ version: "3.7"
 
 services: # the different images that will be running as containers
   proxy: # service name
-    build: ./backend/nginx # location of the dockerfile that defines the nginx image. The dockerfile will be used to spin up an image during the build stage
+    build: ./nginx # location of the dockerfile that defines the nginx image. The dockerfile will be used to spin up an image during the build stage
     ports:
-      - ${EXT_PORT}:80 # map the external port to the internal port 80. Any traffic from EXT_PORT externally will be passed to port 80 of the NGINX container.
+      - 443:443
+      - 80:80
     volumes: # static storages provisioned since django does not handle static files in production
       - static_volume:/home/app/webservice/static # provide a space for static files
     depends_on:
@@ -38,17 +39,12 @@ services: # the different images that will be running as containers
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     restart: "on-failure"
-  front:
-    build: ./frontend
-    volumes:
-      - ./frontend/build:/home/app/webservice/static
 
 volumes:
   static_volume:
 
 #.env:
 #PROJECT_NAME=dj_docker_drf
-#EXT_PORT=8765
 #APP_PORT=8888
 #POSTGRES_DB=postgres
 #POSTGRES_USER=postgres

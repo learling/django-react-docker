@@ -28,4 +28,6 @@ docker-compose up db web proxy
 
 ## Static files
 
+`backend/dj_docker_drf/build/static` and `backend/dj_docker_drf/build/index.html` are needed.
+
 https://medium.com/codex/deploying-react-through-djangos-static-files-part-1-dev-setup-8a3a7b93c809
